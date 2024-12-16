@@ -1,12 +1,13 @@
 'use strict'
 
-const WALL = '&#8251;'
-const FOOD = '&middot;'
+const WALL = '🧱'
+const FOOD = '🔸'
 const EMPTY = ' '
-const SUPER_FOOD = '&#664;'
-const CHERRY = '&copysr;'
+const SUPER_FOOD = '🍭'
+const CHERRY = '🍒'
 
-var totalScore = 56
+var totalScore
+
 var gCheryInterval
 
 const gGame = {
@@ -16,14 +17,13 @@ const gGame = {
 var gBoard = []
 
 function init() {
+    totalScore = 0
     console.log('hello')
-    hideModal('.win')
-    hideModal('.lose')
-
+    hideModal()
     gBoard = buildBoard()
     createPacman(gBoard)
     createGhosts(gBoard)
-    gCheryInterval = setInterval(addCharry,15000)
+    gCheryInterval = setInterval(addCharry, 15000)
     renderBoard(gBoard, '.board-container')
     gGame.isOn = true
 }
@@ -37,7 +37,7 @@ function buildBoard() {
 
         for (var j = 0; j < size; j++) {
             board[i][j] = FOOD
-            
+
             if (i === 0 || i === size - 1 ||
                 j === 0 || j === size - 1 ||
                 (j === 3 && i > 4 && i < size - 2)) {
@@ -45,7 +45,7 @@ function buildBoard() {
             }
         }
     }
-    board[1][1]= board[8][1]=board[1][8]=board[8][8]=SUPER_FOOD
+    board[1][1] = board[8][1] = board[1][8] = board[8][8] = SUPER_FOOD
     return board
 }
 
@@ -53,33 +53,40 @@ function updateScore(diff) {
     // TODO: update model and dom
     gGame.score += diff
 
-    const elScore= document.querySelector('.score span')
+    const elScore = document.querySelector('.score span')
     elScore.innerText = gGame.score
 }
 
 function gameOver() {
-    console.log('Game Over')
-    showModal('.lose')
+    // console.log('Game Over')
     gGame.isOn = false
+    showModal()
 }
 
-function showModal(str) {
-	var elWin = document.querySelector(str)
-    if (str === '.win'){
+function showModal() {
+    if (gGame.isOn) {
+        var elWin = document.querySelector('.restart h1')
+        elWin.innerText = 'You Won!'
         clearInterval(gGhostsInterval)
-     gGame.isOn = false
+        gGame.isOn = false
+        playSound(`win`)
+    } else {
+        var elLose = document.querySelector('.restart h1')
+        elLose.innerText = 'Game Over!'
+        playSound(`gameover`)
     }
-	elWin.classList.remove('hidden')
+    var elRestart = document.querySelector('.restart')
+    elRestart.classList.remove('hidden')
     clearInterval(gCheryInterval)
 }
 
-function hideModal(str) {
-	var elWin = document.querySelector(str)
-	elWin.classList.add('hidden')
+function hideModal() {
+    var elRestart = document.querySelector('.restart')
+    elRestart.classList.add('hidden')
 }
 
-function addCharry(){
-	var emptyCell = findEmptyPos()
+function addCharry() {
+    var emptyCell = findEmptyPos()
     gBoard[emptyCell.i][emptyCell.j] = CHERRY
     renderCell(emptyCell, CHERRY)
 }

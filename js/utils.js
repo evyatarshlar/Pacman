@@ -42,7 +42,7 @@ function getRandomColor() {
 }
 
 function playSound(sorc) {
-    const sound = new Audio('${sorc}sorc.mp3')
+    const sound = new Audio(`sound/${sorc}.mp3`)
     sound.play()
 }
 

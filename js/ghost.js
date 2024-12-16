@@ -12,7 +12,7 @@ function createGhosts(board) {
     for (var i = 0; i < 3; i++) {
         createGhost(board)
     }
-    gGhostsInterval = setInterval(moveGhosts, 500)
+    gGhostsInterval = setInterval(moveGhosts, 1000)
 }
 
 function createGhost(board) {
@@ -105,8 +105,15 @@ function strongGhost() {
 
 function killGhost(location1) {
     for (var i = 0; i < gGhosts.length; i++) {
-        if (gGhosts[i].location.i === location1.i && gGhosts[i].location.j === location1.j) {
+        if (gGhosts[i].location.i === location1[0].i && gGhosts[i].location.j === location1[0].j) {
+            if (gGhosts[i].currCellContent === FOOD) {
+                updateScore(1)
+                totalScore++
+                if (totalScore === 56) showModal()
+            }
+            console.log('gGhosts', gGhosts)
             gGhosts.splice(i, 1)
+            console.log('gGhosts', gGhosts)
         }
     }
 }

@@ -16,16 +16,16 @@ table {
 	font-size: 1.5em;
 }
 
-
-
- .win {
+ .restart {
 	margin: 0 auto;
 }
 
-.lose {
-	margin: 0 auto;
-}
 
 .hidden {
 	display: none;
+}
+
+.cell img {
+    width: 25px;
+    height: auto;
 }
