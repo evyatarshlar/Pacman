@@ -1,0 +1,105 @@
+body {
+    background: #0F4C81;
+    font-family: Arial, Helvetica, sans-serif;
+    color: black;
+}
+
+h1 {
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 0.1px;
+    font-size: 4rem;
+}
+
+.stats {
+    margin: 5px auto 20px;
+    padding: 12px 28px;
+    font-size: 1.2rem;
+}
+
+.board-container {
+    width: max-content;
+    margin: 20px auto;
+}
+
+button {
+    width: max-content;
+    margin: 10px 3px;
+    border-radius: 7px;
+    background-color: #008CBA;
+    font-size: 1rem;
+    padding: 12px 28px;
+    transition-duration: 0.4s;
+}
+
+.reset .exterminator {
+    display: block;
+    font-size: 1.5rem;
+}
+
+button:hover {
+    background-color: #1215cf;
+    color: whitesmoke;
+}
+
+table {
+    width: max-content;
+    background-color: rgba(8, 46, 82, 0.781);
+    border-collapse: separate;
+    border-spacing: 10px;
+    border-radius: 7px;
+}
+
+.cell {
+    background-color: rgba(12, 102, 185, 0.781);
+    width: 50px;
+    height: 50px;
+    border-radius: 7px;
+    text-align: center;
+    content-visibility: hidden;
+}
+
+.shown {
+    content-visibility: visible;
+    background-color: rgba(29, 133, 25, 0.699);
+}
+
+footer {
+    min-height: 5vh;
+    font-size: 1.5rem;
+    text-align: center;
+    line-height: 5vh;
+}
+
+.mark {
+    content-visibility: visible;
+}
+
+.modal {
+    width: max-content;
+    margin: auto;
+    font-size: 1.9rem;
+}
+
+.hidden {
+    display: none;
+}
+
+.levels {
+    display: block;
+    padding: 10px 50px;
+    margin: 10px 50px;
+}
+
+.dark-mode {
+    background-color: black;
+    color: white;
+}
+
+.buttons-container {
+    text-align: center;
+}
+
+.dark-mode-btn {
+    margin: 1px 50px;
+}

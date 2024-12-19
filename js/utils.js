@@ -1,6 +1,6 @@
 'use strict'
 
-function renderBoard(mat, selector) {
+function renderBoard1(mat, selector) {
 
     var strHTML = '<table><tbody>'
     for (var i = 0; i < mat.length; i++) {
@@ -21,13 +21,6 @@ function renderBoard(mat, selector) {
     elContainer.innerHTML = strHTML
 }
 
-// location is an object like this - { i: 2, j: 7 }
-function renderCell(location, value) {
-    // Select the elCell and set the value
-    const elCell = document.querySelector(`.cell-${location.i}-${location.j}`)
-    elCell.innerHTML = value
-}
-
 function getRandomIntInclusive(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min
 }
@@ -46,30 +39,27 @@ function playSound(sorc) {
     sound.play()
 }
 
-function findEmptyPos() {
-    var emptyPoss = [] // [{i:0,j:0} , {i:0,j:1}]
+function findEmptyPos(board, idx, jdx) {
+    var emptyPoss = []
 
-    for (var i = 0; i < gBoard.length; i++) {
-        for (var j = 0; j < gBoard.length; j++) {
-            var cell = gBoard[i][j]
-            if (cell === EMPTY) {
-                var pos = { i: i, j: j }
-                // console.log('pos:', pos)
-                emptyPoss.push(pos)
-            }
+    for (var i = 0; i < board.length; i++) {
+        for (var j = 0; j < board[0].length; j++) {
+            var cell = board[i][j]
+            if (cell.isMine || (i === idx && j === jdx)) continue
+            var pos = { i: i, j: j }
+            emptyPoss.push(pos)
         }
     }
-    var randIdx = getRandomIntInclusive(0, emptyPoss.length)
+
+    if (emptyPoss.length === 0) return null
+    var randIdx = getRandomInt(0, emptyPoss.length)
     var emptyPos = emptyPoss[randIdx]
-    if (emptyPos) {
-        return emptyPos
-    } else {
-        return null
-    }
+    return emptyPos
 }
 
+
 function drawNum2() {
-    var idx = getRandomIntInclusive(0, gNums2.length)
+    var idx = getRandomInt(0, gNums2.length)
     var num = gNums2[idx]
 
     gNums2.splice(idx, 1)
@@ -90,4 +80,11 @@ function updateNeighboring() {
     }
     document.querySelector('.neighboring').innerHTML = '' + negCount
     return negCount
+}
+
+
+function getRandomInt(min, max) {
+    const minCeiled = Math.ceil(min);
+    const maxFloored = Math.floor(max);
+    return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); // The maximum is exclusive and the minimum is inclusive
 }
